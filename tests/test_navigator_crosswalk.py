@@ -2,12 +2,11 @@ import unittest
 
 from accelerator_core.schema.models.accel_model import AccelProgramModel, AccelProjectModel, \
     AccelIntermediateResourceModel, AccelResourceReferenceModel, AccelPublicationModel, AccelDataResourceModel, \
-    AccelTemporalDataModel, AccelGeospatialDataModel
+    AccelTemporalDataModel, AccelGeospatialDataModel, build_accel_from_model
 from accelerator_core.schema.models.base_model import SubmissionInfoModel, TechnicalMetadataModel
 from accelerator_core.utils.xcom_utils import DirectXcomPropsResolver
 from accelerator_core.workflow.accel_data_models import DisseminationDescriptor, DisseminationPayload
 from accelerator_navigator.navigator_dissemination_crosswalk import NavigatorDisseminationCrosswalk
-from build.lib.accelerator_core.schema.models.accel_model import build_accel_from_model
 
 
 class TestNavigatorDisseminationCrosswalk(unittest.TestCase):
