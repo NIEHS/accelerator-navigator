@@ -1,7 +1,9 @@
+from accelerator_core.utils.logger import setup_logger
 from accelerator_core.utils.xcom_utils import XcomPropsResolver
 from accelerator_core.workflow.accel_data_models import DisseminationPayload
 from accelerator_core.workflow.accel_target_dissemination import AccelDisseminationComponent
 
+logger = setup_logger("accelerator")
 
 class NavigatorTargetDissemination(AccelDisseminationComponent):
 
@@ -23,22 +25,38 @@ class NavigatorTargetDissemination(AccelDisseminationComponent):
 
         """
 
-        # send the prepared data to the target, we need to investigate connectors and plugins where they
-        # may be suitable, or go directly.
+        # the following will be put into 'additional_parameters' above and provided by the environment
 
-        # the payload will either have an inline response or provide a path to a temporary file location,
-        # depending on the size and configuration. Utilize the payload_resolve method of AcceratorWorkflowTask
-        # to extract this data in either presentation (TODO: still needs refactoring)
+        # chroma_host = additional_parameters["CHROMA_HOST"]
+        # chroma_port = additional_parameters["CHROMA_PORT"]
+        # chroma_user = additional_parameters["CHROMA_USER"]
+        # chroma_password = additional_parameters["CHROMA_PASSWORD"]
 
-        # 1) create a destination payload for output that passes along the DisseminationDescriptor
+        # this code pulls the payload out for you
 
-        # 2) use the payload_resolve method of AcceleratorWorkflowTask (a parent of this implementation) to
-        # get the payload data, it may be either passed inline or stored in a temp file, this will abstract that
+        payload_length = self.get_payload_length(dissemination_payload)
+        for i in range(payload_length):
+            payload = self.payload_resolve(dissemination_payload, i)
+            logger.info(f"found payload {payload}")
 
-        # 3) push data to target
 
-        # 4) use the report_individual_dissemination method of AcceleratorWorkflowTask to put your data out
 
+
+            # 1) create a destination payload for output that passes along the DisseminationDescriptor
+
+            # 2) use the payload_resolve method of AcceleratorWorkflowTask (a parent of this implementation) to
+            # get the payload data, it may be either passed inline or stored in a temp file, this will abstract that
+
+            # 3) push data to target
+
+
+
+            # 4) use the report_individual_dissemination method of AcceleratorWorkflowTask to put your data out
+            #self.report_individual_dissemination(dissemination_payload, payload)
+
+            # for now we just do this
+
+        return dissemination_payload
 
         # TODO: some add'l work to report back to accelerator after dissemination, how to pass back logs to accel?
 
