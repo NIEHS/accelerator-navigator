@@ -2,6 +2,7 @@ from accelerator_core.utils.logger import setup_logger
 from accelerator_core.utils.xcom_utils import XcomPropsResolver
 from accelerator_core.workflow.accel_data_models import DisseminationPayload
 from accelerator_core.workflow.accel_target_dissemination import AccelDisseminationComponent
+from .vectordb import ChromaDB, loadDocuments
 
 logger = setup_logger("accelerator")
 
@@ -27,34 +28,61 @@ class NavigatorTargetDissemination(AccelDisseminationComponent):
 
         # the following will be put into 'additional_parameters' above and provided by the environment
 
-        # chroma_host = additional_parameters["CHROMA_HOST"]
-        # chroma_port = additional_parameters["CHROMA_PORT"]
-        # chroma_user = additional_parameters["CHROMA_USER"]
-        # chroma_password = additional_parameters["CHROMA_PASSWORD"]
+        # Vector related
+        chroma_host = additional_parameters["CHROMA_HOST"]
+        chroma_port = additional_parameters["CHROMA_PORT"]
+        chroma_user = additional_parameters["CHROMA_USERNAME"]
+        chroma_password = additional_parameters["CHROMA_PASSWORD"]
+        collection_name = additional_parameters["CHROMA_COLLECTION_NAME"]
 
-        # this code pulls the payload out for you
+        # AI Auth
+        ai_base_url = additional_parameters["AI_BASE_URL"]
+        ai_api_key = additional_parameters["AI_API_KEY"]
 
+        # AI Embedding model
+        embedding = additional_parameters["AI_MODEL_EMBEDDING"]
+
+        # Vector db insert metrics
+        chunk_size = int(additional_parameters["CHUNK_SIZE"])
+        chunk_overlap = int(additional_parameters["CHUNK_OVERLAP"])
+
+        # Vector db instance
+        db = ChromaDB(collection_name = collection_name, 
+                 embedding = embedding, 
+                 host = chroma_host, 
+                 port = chroma_port, 
+                 base_url = ai_base_url, 
+                 api_key = ai_api_key
+        )
+
+        # Data retrieval from payload
+        data_list = []
         payload_length = self.get_payload_length(dissemination_payload)
         for i in range(payload_length):
             payload = self.payload_resolve(dissemination_payload, i)
             logger.info(f"found payload {payload}")
 
+            data_list.append(payload['data']['resource'])
+
+        # Convert json data to langchain documents
+        docs = loadDocuments(data_list)
+
+        # Vector db insert
+        db.add(docs=docs, chunk_size=chunk_size, chunk_overlap=chunk_overlap)
+
+        # 1) create a destination payload for output that passes along the DisseminationDescriptor
+
+        # 2) use the payload_resolve method of AcceleratorWorkflowTask (a parent of this implementation) to
+        # get the payload data, it may be either passed inline or stored in a temp file, this will abstract that
+
+        # 3) push data to target
 
 
 
-            # 1) create a destination payload for output that passes along the DisseminationDescriptor
+        # 4) use the report_individual_dissemination method of AcceleratorWorkflowTask to put your data out
+        #self.report_individual_dissemination(dissemination_payload, payload)
 
-            # 2) use the payload_resolve method of AcceleratorWorkflowTask (a parent of this implementation) to
-            # get the payload data, it may be either passed inline or stored in a temp file, this will abstract that
-
-            # 3) push data to target
-
-
-
-            # 4) use the report_individual_dissemination method of AcceleratorWorkflowTask to put your data out
-            #self.report_individual_dissemination(dissemination_payload, payload)
-
-            # for now we just do this
+        # for now we just do this
 
         return dissemination_payload
 

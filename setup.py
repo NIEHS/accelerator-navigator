@@ -1,8 +1,5 @@
 from setuptools import setup, find_packages
 
-with open("requirements.txt", "r") as f:
-    install_requires = [line.strip() for line in f if line.strip()]
-
 setup(
     name="accelerator_navigator",
     version="0.1.0",

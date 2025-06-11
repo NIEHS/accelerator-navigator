@@ -8,7 +8,8 @@ from accelerator_core.utils.xcom_utils import DirectXcomPropsResolver
 from accelerator_core.workflow.accel_data_models import DisseminationDescriptor, DisseminationPayload
 from accelerator_navigator.navigator_dissemination_crosswalk import NavigatorDisseminationCrosswalk
 from accelerator_navigator.navigator_target_dissemination import NavigatorTargetDissemination
-
+from pathlib import Path
+import dotenv
 
 class TestNavigatorDissemination(unittest.TestCase):
     def test_transform(self):
@@ -36,17 +37,17 @@ class TestNavigatorDissemination(unittest.TestCase):
         project.project_url = "https://project.url"
 
         resource = AccelIntermediateResourceModel()
-        resource.name = "resource"
-        resource.code = "resourcecode"
-        resource.description = "resource description"
+        resource.name = "dummy"
+        resource.code = "dummycode"
+        resource.description = "Poor air quality can negatively impact individuals with asthma, especially those sensitive to air pollutants like ozone and particulate matter. Air pollution can worsen asthma symptoms, trigger attacks, and even cause the onset of asthma. "
         resource.resource_type = "resourcetype"
         resource.resource_url = "https://resourceurl"
-        resource.description = "resource description"
-        resource.domain.append("domain1")
-        resource.domain.append("domain2")
-        resource.keywords.append("keyword1")
-        resource.keywords.append("keyword2")
-        resource.keywords.append("keyword3")
+        resource.domain.append("air quality")
+        resource.domain.append("asthma")
+        resource.keywords.append("air quality")
+        resource.keywords.append("air pollutants")
+        resource.keywords.append("ozone")
+        resource.keywords.append("asthma")
         resource.access_type = "access_type"
 
         resource_reference = AccelResourceReferenceModel()
@@ -111,11 +112,18 @@ class TestNavigatorDissemination(unittest.TestCase):
         dissemination_payload.payload_inline = True
 
         props = {}
-        props["CHROMA_HOST"] = "host"
-        props["CHROMA_PORT"] = "port"
-        props["CHROMA_USERNAME"] = "username"
-        props["CHROMA_PASSWORD"] = "password"
-
+        env_config = dotenv.dotenv_values(Path(".env"))
+        props["CHROMA_HOST"] = env_config.get('CHROMA_HOST')
+        props["CHROMA_PORT"] = env_config.get('CHROMA_PORT')
+        props["CHROMA_USERNAME"] = env_config.get('CHROMA_USERNAME')
+        props["CHROMA_PASSWORD"] = env_config.get('CHROMA_PASSWORD')
+        props["CHROMA_COLLECTION_NAME"] = env_config.get('CHROMA_COLLECTION_NAME')
+        props["AI_BASE_URL"] = env_config.get('AI_BASE_URL')
+        props["AI_API_KEY"] = env_config.get('AI_API_KEY')
+        props["AI_MODEL_EMBEDDING"] = env_config.get('AI_MODEL_EMBEDDING')
+        props["CHUNK_SIZE"] = env_config.get('CHUNK_SIZE')
+        props["CHUNK_OVERLAP"] = env_config.get('CHUNK_OVERLAP')
+        
         dissem = NavigatorTargetDissemination(xcom_props_resolver)
         actual = dissem.disseminate(dissemination_payload, props)
 
