@@ -1,0 +1,13 @@
+chromadb:
+  allowReset: true
+  isPersistent: false
+  auth: # not working in 1.0.x
+    enabled: true
+    type: "token" # possible values: basic, token
+    existingSecret: ""
+    basic:
+      username: "chroma"
+      password: null  # The string used as the auth.basic password. Only used if value not null, otherwise a random string will be generated and used.
+    token:
+      headerType: "Authorization" #possible values Authorization, X-Chroma-Token
+      value: null # The string used as the token (value). Only used if value not null, otherwise a random string will be generated and used.
