@@ -70,21 +70,6 @@ class NavigatorTargetDissemination(AccelDisseminationComponent):
         # Vector db insert
         db.add(docs=docs, chunk_size=chunk_size, chunk_overlap=chunk_overlap)
 
-        # 1) create a destination payload for output that passes along the DisseminationDescriptor
-
-        # 2) use the payload_resolve method of AcceleratorWorkflowTask (a parent of this implementation) to
-        # get the payload data, it may be either passed inline or stored in a temp file, this will abstract that
-
-        # 3) push data to target
-
-
-
-        # 4) use the report_individual_dissemination method of AcceleratorWorkflowTask to put your data out
-        #self.report_individual_dissemination(dissemination_payload, payload)
-
-        # for now we just do this
-
         return dissemination_payload
 
-        # TODO: some add'l work to report back to accelerator after dissemination, how to pass back logs to accel?
 
