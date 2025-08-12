@@ -15,17 +15,21 @@ from accelerator_navigator.navigator_config import NavigatorConfig, navigator_co
 from accelerator_navigator.navigator_dissemination_crosswalk import NavigatorDisseminationCrosswalk
 from accelerator_navigator.navigator_target_dissemination import NavigatorTargetDissemination
 from pathlib import Path
-import dotenv
+
+API_KEY_CONSTANT = "TEST_API_KEY"
+CHROMA_PASSWORD_CONSTANT = "CHROMA_PASSWORD"
+
 
 class TestNavigatorDissemination(unittest.TestCase):
 
+    # set env variables as follows
+
+
     @classmethod
     def setUpClass(cls):
-        test_path = resource_utils.determine_test_resource_path(
-            "application.properties", "tests"
-        )
-
-        navigator_config = navigator_config_from_props(test_path)
+        test_path = "test_resources/application.properties"
+        navigator_config = navigator_config_from_props(test_path, chroma_password_env_var=CHROMA_PASSWORD_CONSTANT,
+                                                       api_key_env_var=API_KEY_CONSTANT)
         cls._navigator_config = navigator_config
 
     def test_disseminate(self):
@@ -51,18 +55,7 @@ class TestNavigatorDissemination(unittest.TestCase):
             dissemination_payload.payload.append(d)
             dissemination_payload.payload_inline = True
 
-            props = {}
-            env_config = dotenv.dotenv_values(Path(".env"))
-            props["CHROMA_HOST"] = env_config.get('CHROMA_HOST')
-            props["CHROMA_PORT"] = env_config.get('CHROMA_PORT')
-            props["CHROMA_USERNAME"] = env_config.get('CHROMA_USERNAME')
-            props["CHROMA_PASSWORD"] = env_config.get('CHROMA_PASSWORD')
-            props["CHROMA_COLLECTION_NAME"] = env_config.get('CHROMA_COLLECTION_NAME')
-            props["AI_BASE_URL"] = env_config.get('AI_BASE_URL')
-            props["AI_API_KEY"] = env_config.get('AI_API_KEY')
-            props["AI_MODEL_EMBEDDING"] = env_config.get('AI_MODEL_EMBEDDING')
-            props["CHUNK_SIZE"] = env_config.get('CHUNK_SIZE')
-            props["CHUNK_OVERLAP"] = env_config.get('CHUNK_OVERLAP')
+
 
             dissem = NavigatorTargetDissemination(xcom_props_resolver)
             actual = dissem.disseminate(dissemination_payload, props)
