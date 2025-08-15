@@ -1,8 +1,12 @@
+import os
+
 from accelerator_core.utils.logger import setup_logger
 from accelerator_core.utils.xcom_utils import XcomPropsResolver
 from accelerator_core.workflow.accel_data_models import DisseminationPayload
 from accelerator_core.workflow.accel_target_dissemination import AccelDisseminationComponent
-from .vectordb import ChromaDB, loadDocuments
+from accelerator_navigator.cert_bundler import bundle_certs
+from accelerator_navigator.vectordb import ChromaDB, loadDocuments
+
 
 logger = setup_logger("accelerator")
 
@@ -26,6 +30,8 @@ class NavigatorTargetDissemination(AccelDisseminationComponent):
 
         """
 
+        #bundle_certs(None)
+
         # the following will be put into 'additional_parameters' above and provided by the environment
 
         # Vector related
@@ -47,7 +53,7 @@ class NavigatorTargetDissemination(AccelDisseminationComponent):
         chunk_overlap = int(additional_parameters["CHUNK_OVERLAP"])
 
         # Vector db instance
-        db = ChromaDB(collection_name = collection_name, 
+        db = ChromaDB(collection_name = collection_name,
                  embedding = embedding, 
                  host = chroma_host, 
                  port = chroma_port, 

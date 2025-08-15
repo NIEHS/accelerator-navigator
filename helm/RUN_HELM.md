@@ -39,7 +39,7 @@ The following command is using the accelerator namespace, so omit the -n flag or
 We want to provide a token that we can use for testing. Let's leave this out of the git repo! Set a value via a 
 property override
 
-
+#### For token auth
 
 ```shell
 
@@ -49,15 +49,24 @@ helm install chroma chroma/chromadb -n accelerator-dev --set chromadb.auth.exist
 
 ```
 
-For the integration tests, you need to set that chromadb token value as an environment variable for your tests.
-
 To test, given that you've set the context to the correct namespace, try this:
 
 ```shell
 
 export CHROMA_TOKEN=$(kubectl get secret chromadb-auth-custom -o jsonpath="{.data.token}" | base64 --decode)
 
-export CHROMA_HEADER_NAME=$(kubectl get configmap chroma-chromadb-token-auth-config -o jsonpath="{.data.CHROMA_AUTH_TOKEN_TRANSPORT_HEADER}")
+export CHROMA_HEADER_NAME=$(kubectl --namespace default get configmap chroma-chromadb-token-auth-config -o jsonpath="{.data.CHROMA_AUTH_TOKEN_TRANSPORT_HEADER}")
 
+
+```
+
+
+#### For basic auth (used by theses)
+
+```shell
+
+k create secret generic chromadb-auth-basic --from-literal=token="heypasword"
+
+helm install chroma chroma/chromadb -n accelerator-dev --set chromadb.auth.basic.password="chromadb-auth-basic" -f test_values.yaml
 
 ```
