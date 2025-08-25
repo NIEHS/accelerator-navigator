@@ -55,10 +55,8 @@ class TestNavigatorDissemination(unittest.TestCase):
             dissemination_payload.payload.append(d)
             dissemination_payload.payload_inline = True
 
-
-
             dissem = NavigatorTargetDissemination(xcom_props_resolver)
-            actual = dissem.disseminate(dissemination_payload, props)
+            actual = dissem.disseminate(dissemination_payload, self._navigator_config.to_dict())
 
             self.assertIsNotNone(actual)
 
