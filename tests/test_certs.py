@@ -28,13 +28,9 @@ class TestCerts(unittest.TestCase):
 
         with open("test_resources/example1.json") as json_data:
             d = json.load(json_data)
-
             test_props =  self._navigator_config.to_dict()
-
             print(f"certifi cert store: {certifi.where()}")
-
             resp = httpx.get(test_props["AI_BASE_URL"])
-
             print(f"response: {resp}")
 
 
