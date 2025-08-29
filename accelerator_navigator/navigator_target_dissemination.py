@@ -6,8 +6,7 @@ from accelerator_core.workflow.accel_data_models import DisseminationPayload
 from accelerator_core.workflow.accel_target_dissemination import AccelDisseminationComponent
 from accelerator_navigator.cert_bundler import bundle_certs
 from accelerator_navigator.document_template_processor import NavigatorDocument
-from accelerator_navigator.vectordb import ChromaDB, loadDocuments
-
+from accelerator_navigator.vectordb import ChromaDB, load_document
 
 logger = setup_logger("accelerator")
 
@@ -70,25 +69,26 @@ class NavigatorTargetDissemination(AccelDisseminationComponent):
             logger.info(f"found payload {payload}")
             resource = payload['data']['resource']
 
+            metadata = {'id':payload['_id']['$oid'],
+                        'source':payload['technical_metadata']['original_source_link'],
+                        'original_identifier':payload['technical_metadata']['original_source_identifier'],
+                        'project':payload['data']['project']['project_name'],
+                        'resource':payload['data']['resource']['resource_name']
+                        }
+
             navigator_document = NavigatorDocument()
+            navigator_document.title = resource['resource_name']
+            navigator_document.description = resource['resource_description']
+            navigator_document.keywords = resource['resource_keywords']
+            navigator_document.resource_type = resource['resource_type']
+            navigator_document.link = resource['resource_url']
+            navigator_document.resource = metadata
 
-            #data_resource = payload['data']['data_resource']
-            #keywords = ""
-            #for keyword in resource['resource_keywords']:
-            #    keywords += keyword + " "
+            # Convert data to langchain document
+            doc = load_document(navigator_document)
 
-            # entry = f"{{entry['resource_name']}} {{entry['resource_description']}} {{keywords}}  {{data_resource['time_extent_start']}} {{data_resource['time_extent_end']}}"
-
-
-            data_list.append(resource)
-
-            #data_list.append(payload['data']['resource'])
-
-        # Convert json data to langchain documents
-        docs = loadDocuments(data_list)
-
-        # Vector db insert
-        db.add(docs=docs, chunk_size=chunk_size, chunk_overlap=chunk_overlap)
+            # Vector db insert
+            db.add(docs=[doc], chunk_size=chunk_size, chunk_overlap=chunk_overlap)
 
         return dissemination_payload
 

@@ -61,7 +61,7 @@ export CHROMA_HEADER_NAME=$(kubectl --namespace default get configmap chroma-chr
 ```
 
 
-#### For basic auth (used by theses)
+#### For basic auth (used by these)
 
 ```shell
 
