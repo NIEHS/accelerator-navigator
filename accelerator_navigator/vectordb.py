@@ -4,11 +4,14 @@ from langchain_openai import OpenAIEmbeddings
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_core.documents.base import Document
 
+from accelerator_navigator.document_template_processor import NavigatorDocument
+
+
 class ChromaDB:
 
     def __init__(self, 
                  collection_name: str, 
-                 embedding: str, 
+                 embedding: str,
                  host: str, 
                  port: str, 
                  base_url: str, 
@@ -43,7 +46,7 @@ class ChromaDB:
         # Index chunks
         _ = self.vector_store.add_documents(documents=all_splits)
 
-def loadDocuments(data_list: list[dict]) -> list[Document]:
+def loadDocuments(data_list: list[NavigatorDocument]) -> list[Document]:
 
     def getMetaData(data):
         return {k: str(v) for k, v in data.items()}

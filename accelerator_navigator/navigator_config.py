@@ -28,20 +28,19 @@ class NavigatorConfig():
       """
 
       additional_parameters = {
-        "CHROMA_HOST": self.chroma_host,
-        "CHROMA_PORT": self.chroma_port,
-        "CHROMA_USERNAME": self.chroma_user,
-        "CHROMA_PASSWORD": self.chroma_password,
-        "CHROMA_COLLECTION_NAME": self.chroma_collection_name,
-        "AI_BASE_URL": self.ai_base_url,
-        "AI_API_KEY": self.ai_api_key,
-        "AI_MODEL_EMBEDDING": self.ai_model_embedding,
-        "CHUNK_SIZE": self.chunk_size,
-        "CHUNK_OVERLAP": self.chunk_overlap
+        "host": self.chroma_host,
+        "port": self.chroma_port,
+        "user": self.chroma_user,
+        "password": self.chroma_password,
+        "collection": self.chroma_collection_name,
+        "ai_base_url": self.ai_base_url,
+        "api_key": self.ai_api_key,
+        "ai_model_embedding": self.ai_model_embedding,
+        "chunk_size": self.chunk_size,
+        "chunk_overlap": self.chunk_overlap
       }
 
       return additional_parameters
-
 
 
 def navigator_config_from_props(props_path, chroma_password_env_var:str = None, api_key_env_var:str = None):

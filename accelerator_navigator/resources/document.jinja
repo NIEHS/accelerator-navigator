@@ -1,0 +1,18 @@
+<Link>
+{{ document.link }}
+</Link>
+
+<Title>{{ document.title }}</Title>
+
+<Description>{{ document.description }}</Description>
+
+<Keywords>
+{% for entry in document.keywords %}
+    {{ entry }}
+    {{ "," if not loop.last }}
+{% endfor %}
+</Keywords>
+
+<Type of data>
+{{ document.resource_type }}
+</Type of data>

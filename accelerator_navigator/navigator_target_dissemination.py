@@ -5,6 +5,7 @@ from accelerator_core.utils.xcom_utils import XcomPropsResolver
 from accelerator_core.workflow.accel_data_models import DisseminationPayload
 from accelerator_core.workflow.accel_target_dissemination import AccelDisseminationComponent
 from accelerator_navigator.cert_bundler import bundle_certs
+from accelerator_navigator.document_template_processor import NavigatorDocument
 from accelerator_navigator.vectordb import ChromaDB, loadDocuments
 
 
@@ -35,22 +36,22 @@ class NavigatorTargetDissemination(AccelDisseminationComponent):
         # the following will be put into 'additional_parameters' above and provided by the environment
 
         # Vector related
-        chroma_host = additional_parameters["CHROMA_HOST"]
-        chroma_port = additional_parameters["CHROMA_PORT"]
-        chroma_user = additional_parameters["CHROMA_USERNAME"]
-        chroma_password = additional_parameters["CHROMA_PASSWORD"]
-        collection_name = additional_parameters["CHROMA_COLLECTION_NAME"]
+        chroma_host = additional_parameters["host"]
+        chroma_port = additional_parameters["port"]
+        chroma_user = additional_parameters["user"]
+        chroma_password = additional_parameters["password"]
+        collection_name = additional_parameters["collection"]
 
         # AI Auth
-        ai_base_url = additional_parameters["AI_BASE_URL"]
-        ai_api_key = additional_parameters["AI_API_KEY"]
+        ai_base_url = additional_parameters["ai_base_url"]
+        ai_api_key = additional_parameters["api_key"]
 
         # AI Embedding model
-        embedding = additional_parameters["AI_MODEL_EMBEDDING"]
+        embedding = additional_parameters["ai_model_embedding"]
 
         # Vector db insert metrics
-        chunk_size = int(additional_parameters["CHUNK_SIZE"])
-        chunk_overlap = int(additional_parameters["CHUNK_OVERLAP"])
+        chunk_size = 1000
+        chunk_overlap = 200
 
         # Vector db instance
         db = ChromaDB(collection_name = collection_name,
@@ -67,8 +68,21 @@ class NavigatorTargetDissemination(AccelDisseminationComponent):
         for i in range(payload_length):
             payload = self.payload_resolve(dissemination_payload, i)
             logger.info(f"found payload {payload}")
+            resource = payload['data']['resource']
 
-            data_list.append(payload['data']['resource'])
+            navigator_document = NavigatorDocument()
+
+            #data_resource = payload['data']['data_resource']
+            #keywords = ""
+            #for keyword in resource['resource_keywords']:
+            #    keywords += keyword + " "
+
+            # entry = f"{{entry['resource_name']}} {{entry['resource_description']}} {{keywords}}  {{data_resource['time_extent_start']}} {{data_resource['time_extent_end']}}"
+
+
+            data_list.append(resource)
+
+            #data_list.append(payload['data']['resource'])
 
         # Convert json data to langchain documents
         docs = loadDocuments(data_list)
