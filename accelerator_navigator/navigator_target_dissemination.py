@@ -72,7 +72,7 @@ class NavigatorTargetDissemination(AccelDisseminationComponent):
             metadata = {'id':payload['_id']['$oid'],
                         'Source':payload['technical_metadata']['original_source_link'],
                         'original_identifier':payload['technical_metadata']['original_source_identifier'],
-                        'project':payload['data']['project']['project_name'],
+                        'Project':payload['data']['project']['project_name'],
                         'Title':resource['resource_name'],
                         'Keywords':resource['resource_keywords'],
                         'Type of data': resource['resource_type'],
