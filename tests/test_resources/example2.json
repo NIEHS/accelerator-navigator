@@ -1,0 +1,230 @@
+{
+  "_id": {
+    "$oid": "6893aeb5004dc1bbd393cedd"
+  },
+  "submission": {
+    "submitter_name": "Mike Conway",
+    "submitter_email": "mike.conway@nih.gov",
+    "submitter_comment": ""
+  },
+  "data": {
+    "program": {
+      "program_name": "CHORDS",
+      "preferred_label": ""
+    },
+    "project": {
+      "project_code": "FAQSD-071924",
+      "project_name": "Fused Air Quality Surface Using Downscaling (FAQSD)",
+      "project_short_name": "FAQSD",
+      "project_url": "",
+      "project_sponsor": [
+        {
+          "type": "",
+          "name": "Environmental Protection Agency (EPA)",
+          "other_type": false
+        },
+        {
+          "type": "Federal Agency",
+          "name": "",
+          "other_type": false
+        }
+      ]
+    },
+    "resource": {
+      "resource_name": "US Environmental Protection Agency Fused Air Quality Surface Using Downscaling (EPA FAQSD)",
+      "resource_version": "None",
+      "resource_short_name": "EPA FAQSD",
+      "resource_type": "Data Resource",
+      "resource_url": "https://www.epa.gov/hesc/rsig-related-downloadable-data-files",
+      "resource:doi": "",
+      "resource_description": "The U.S. Environmental Protection Agency, Fused Air Quality Surface Using Downscaling (EPA FAQSD) presents modeled PM2.5 (daily average) and O3 (daily 8-hr maximum) surfaces. Predictions are generated from a Bayesian space-time downscaling fusion model that uses both air quality monitoring data from the National Air Monitoring Stations/State and Local Air Monitoring Stations and numerical output data from the EPA Community Multiscale Air Quality (CMAQ) database. Data are available at the 2010 census tract level for 2002-2016.",
+      "resource_domain": [
+        {
+          "name": "Air Quality",
+          "other_type": false
+        }
+      ],
+      "resource_keywords": [
+        "Air Pollution",
+        "Concentration Prediction",
+        "PM2.5",
+        "Ozone",
+        "Daily Average",
+        "Hybrid Model",
+        "Downscaler Tool",
+        "United States"
+      ],
+      "resource_access_type": [
+        "Open"
+      ],
+      "resource_license": {
+        "license_name": "",
+        "license_uri": ""
+      },
+      "resource_reference": [
+        {
+          "resource_reference_text": "None",
+          "resource_reference_link": "http://nolink"
+        }
+      ],
+      "resource_use_agreement": [
+        {
+          "resource_use_agreement_text": "None",
+          "resource_use_agreement_link": "http://nolink"
+        }
+      ],
+      "publication": [
+        {
+          "citation": "Berrocal, V., Gelfand, A. E. and Holland, D. M. (2012). Space-time fusion under error in computer model output: an application to modeling air quality. Biometrics 68, 837-848",
+          "citation_link": "https://doi.org/10.1111/j.1541-0420.2011.01725.x"
+        },
+        {
+          "citation": "Berrocal, V., Gelfand, A. E. and Holland, D. M. (2010). A bivariate space-time downscaler under space and time misalignment. The Annals of Applied Statistics 4, 1942-1975",
+          "citation_link": "https://doi.org/10.1214/10-aoas351"
+        },
+        {
+          "citation": "Berrocal, V., Gelfand, A. E., and Holland, D. M. (2010). A spatio- temporal downscaler for output from numerical models. J. of Agricultural, Biological, and Environmental Statistics 15, 176-197",
+          "citation_link": "https://doi.org/10.1007/s13253-009-0004-z"
+        }
+      ],
+      "is_static": true,
+      "payment_required": false
+    },
+    "personnel": [],
+    "data_resource": {
+      "exposure_media": [],
+      "measures": [
+        {
+          "value": "Particulate Matter (PM2.5)",
+          "other_type": false
+        },
+        {
+          "value": "Ozone (O3)",
+          "other_type": false
+        }
+      ],
+      "measurement_method": [],
+      "time_extent_start": "2002",
+      "time_extent_end": "2020",
+      "time_available_comment": "None",
+      "update_frequency": [
+        "Static"
+      ],
+      "key_variables": [
+        "Daily fine particulate matter (PM2.5) and daily 8-hour maximum ozone (O3) air pollution concentration predictions and associated prediction standard error"
+      ],
+      "data_formats": [
+        "CSV"
+      ],
+      "example_metrics": [
+        "Daily air pollutant concentrations for Census tract containing geocoded address"
+      ],
+      "data_location": [
+        {
+          "data_location_text": "",
+          "data_location_link": "https://www.epa.gov/hesc/rsig-related-downloadable-data-files"
+        }
+      ],
+      "includes_citizen_collected": false,
+      "has_api": false,
+      "has_visualization_tool": false
+    },
+    "data_usage": {
+      "intended_use": [
+        {
+          "value": "Geospatial exposure assessment for public health studies on shorter-term or longer-term outcomes",
+          "other_type": false
+        },
+        {
+          "value": "Geospatial exposure assessment at the individual-level or population-level",
+          "other_type": false
+        },
+        {
+          "value": "Long-term (multi-decade) health cohort studies",
+          "other_type": false
+        }
+      ],
+      "strengths": [
+        "Dataset supports analysis of shorter-term (e.g., daily, weekly, monthly) exposure to air pollution across the contiguous US using consistent methods",
+        "Dataset includes information about uncertainty in model predictions (i.e., standard error values)",
+        "Data available for geographic units commonly used in population-level analyses (i.e., Census tract) in tabular format"
+      ],
+      "limitations": [
+        "Dataset cannot be used to compare exposures within the same Census tract or at different times of day",
+        "Dataset cannot be used to compare exposures within the same Census tract or at different times of day"
+      ],
+      "suggested_audience": [
+        "Researcher"
+      ]
+    },
+    "temporal_data": {
+      "temporal_resolution": [
+        {
+          "value": "Daily",
+          "other_type": false
+        }
+      ],
+      "temporal_resolution_comment": ""
+    },
+    "population_data": {
+      "individual_level": false,
+      "linkable_encounters": false,
+      "population_studies": [],
+      "biospecimens_from_humans": false,
+      "biospecimens_type": []
+    },
+    "geospatial_data": {
+      "spatial_resolution": [
+        {
+          "value": "['Grid']",
+          "other_type": false
+        },
+        {
+          "value": "12 km",
+          "other_type": true
+        }
+      ],
+      "spatial_resolution_comment": "None",
+      "spatial_coverage": [
+        {
+          "value": "Contiguous United States",
+          "other_type": false
+        }
+      ],
+      "spatial_bounding_box": [],
+      "geometry_type": [
+        "Grid",
+        "Polygon"
+      ],
+      "geometry_source": [],
+      "model_methods": [],
+      "geographic_feature": []
+    },
+    "computational_workflow": {
+      "tool_type": [],
+      "is_open": false,
+      "languages": [],
+      "use_tools": [],
+      "example_applications": []
+    }
+  },
+  "technical_metadata": {
+    "created": "2025-08-06T19:36:21.777360",
+    "modified": "",
+    "verified": "",
+    "original_source_type": "accelerator",
+    "original_source_identifier": "8bb72176-1b58-46d1-b4a4-09e61a9644b9",
+    "original_source_link": "cedar",
+    "history": [
+      {
+        "timestamp": "2025-08-06T19:36:21.777375",
+        "msg": "accession from accelerator with identifier 8bb72176-1b58-46d1-b4a4-09e61a9644b9 in operation CEDAR_Ingest-manual__2025-08-06T19:35:20.434890+00:00"
+      },
+      {
+        "timestamp": "2025-08-06T19:40:25.854373",
+        "msg": "Disseminating document 6893aeb5004dc1bbd393cedd of type accelerator to target: dataverse"
+      }
+    ],
+    "original_source": "8bb72176-1b58-46d1-b4a4-09e61a9644b9"
+  }
+}
