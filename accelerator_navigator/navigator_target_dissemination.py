@@ -70,22 +70,16 @@ class NavigatorTargetDissemination(AccelDisseminationComponent):
             resource = payload['data']['resource']
 
             metadata = {'id':payload['_id']['$oid'],
-                        'source':payload['technical_metadata']['original_source_link'],
+                        'Source':payload['technical_metadata']['original_source_link'],
                         'original_identifier':payload['technical_metadata']['original_source_identifier'],
                         'project':payload['data']['project']['project_name'],
-                        'resource':payload['data']['resource']['resource_name']
+                        'Title':resource['resource_name'],
+                        'Keywords':resource['resource_keywords'],
+                        'Type of data': resource['resource_type'],
+                        'Link': resource['resource_url']
                         }
 
-            navigator_document = NavigatorDocument()
-            navigator_document.title = resource['resource_name']
-            navigator_document.description = resource['resource_description']
-            navigator_document.keywords = resource['resource_keywords']
-            navigator_document.resource_type = resource['resource_type']
-            navigator_document.link = resource['resource_url']
-            navigator_document.resource = metadata
-
-            # Convert data to langchain document
-            doc = load_document(navigator_document)
+            doc = load_document(content=resource['resource_description'], metadata=metadata)
 
             # Vector db insert
             db.add(docs=[doc], chunk_size=chunk_size, chunk_overlap=chunk_overlap)

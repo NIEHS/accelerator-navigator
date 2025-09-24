@@ -27,8 +27,11 @@ class ChromaDB:
             api_key=api_key
         )
 
-        if delete_if_exists and collection_name in [c.name for c in client.list_collections()]:
-            client.delete_collection(collection_name)
+        if delete_if_exists:
+            for c in client.list_collections():
+                if c.name == collection_name:
+                    client.delete_collection(collection_name)
+                    break
 
         self.vector_store = Chroma(
             client=client,
@@ -50,12 +53,10 @@ class ChromaDB:
         # Index chunks
         _ = self.vector_store.add_documents(documents=all_splits)
 
-def load_document(data: NavigatorDocument) -> Document:
+def load_document(content: str, metadata: dict) -> Document:
 
     def getMetaData(data):
         return {k: str(v) for k, v in data.items()}
 
-    doc_processor = DocumentTemplateProcessor()
-    text_from_doc = doc_processor.produce_navigator_document(data)
-    return Document(page_content = text_from_doc, metadata=data.resource)
+    return Document(page_content=content, metadata=metadata)
 
