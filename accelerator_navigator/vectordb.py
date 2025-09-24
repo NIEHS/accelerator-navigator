@@ -4,9 +4,6 @@ from langchain_openai import OpenAIEmbeddings
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_core.documents.base import Document
 
-from accelerator_navigator.document_template_processor import NavigatorDocument, DocumentTemplateProcessor
-
-
 class ChromaDB:
 
     def __init__(self, 
