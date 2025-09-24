@@ -13,6 +13,7 @@ class ChromaDB:
                  port: str, 
                  base_url: str, 
                  api_key: str,
+                 delete_if_exists: bool = False
     ):
 
         client = HttpClient(host=host,  port=port)
@@ -22,6 +23,9 @@ class ChromaDB:
             base_url=base_url,
             api_key=api_key
         )
+
+        if delete_if_exists and collection_name in [c.name for c in client.list_collections()]:
+            client.delete_collection(collection_name)
 
         self.vector_store = Chroma(
             client=client,
