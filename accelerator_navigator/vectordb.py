@@ -1,4 +1,4 @@
-from chromadb import HttpClient
+from chromadb import HttpClient, Settings
 from langchain_chroma import Chroma
 from langchain_openai import OpenAIEmbeddings
 from langchain_text_splitters import RecursiveCharacterTextSplitter
@@ -16,7 +16,10 @@ class ChromaDB:
                  delete_if_exists: bool = False
     ):
 
-        client = HttpClient(host=host,  port=port)
+        settings = Settings()
+        settings.chroma_server_ssl_verify = False
+
+        client = HttpClient(host=host,  settings=settings, port=port)
 
         self.embedding = OpenAIEmbeddings(
             model=embedding, 

@@ -7,8 +7,10 @@ from accelerator_core.workflow.accel_target_dissemination import AccelDisseminat
 from accelerator_navigator.cert_bundler import bundle_certs
 from accelerator_navigator.document_template_processor import NavigatorDocument
 from accelerator_navigator.vectordb import ChromaDB, load_document
+import truststore
 
 logger = setup_logger("accelerator")
+truststore.inject_into_ssl()
 
 class NavigatorTargetDissemination(AccelDisseminationComponent):
 
