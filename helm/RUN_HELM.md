@@ -70,3 +70,11 @@ k create secret generic chromadb-auth-basic --from-literal=token="heypasword"
 helm install chroma chroma/chromadb -n accelerator-dev --set chromadb.auth.basic.password="chromadb-auth-basic" -f test_values.yaml
 
 ```
+
+#### Port forwarding for Chroma
+
+For mongodb port forwarding:
+ 
+port forward mongodb pod on server using k9s
+* open ssh tunnel on local machine: ➜  ~ ssh -L 27017:localhost:27017 user@host
+* update mongodb compass connection string to: mongodb://user:password@127.0.0.1:27017/?directConnection=true&authSource=admin
