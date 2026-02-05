@@ -76,7 +76,7 @@ class NavigatorTargetDissemination(AccelDisseminationComponent):
                         'original_identifier':payload['technical_metadata']['original_source_identifier'],
                         'Project':payload['data']['project']['project_name'],
                         'Title':resource['resource_name'],
-                        'Keywords':resource['resource_keywords'],
+                        'Keywords': self.array_to_string(resource['resource_keywords']),
                         'Type of data': resource['resource_type'],
                         'Link': resource['resource_url']
                         }
@@ -87,5 +87,12 @@ class NavigatorTargetDissemination(AccelDisseminationComponent):
             db.add(docs=[doc], chunk_size=chunk_size, chunk_overlap=chunk_overlap)
 
         return dissemination_payload
+
+    @staticmethod
+    def array_to_string(input_array) -> str:
+        val = ""
+        for element in input_array:
+            val += str(element) + " "
+        return val
 
 
