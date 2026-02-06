@@ -51,7 +51,13 @@ class ChromaDB:
         all_splits = text_splitter.split_documents(docs)
 
         # Index chunks
-        _ = self.vector_store.add_documents(documents=all_splits)
+        ids_added = self.vector_store.add_documents(documents=all_splits)
+        return ids_added
+
+    def find(self, ids):
+
+        docs = self.vector_store.get_by_ids(ids)
+        return docs
 
 def load_document(content: str, metadata: dict) -> Document:
 

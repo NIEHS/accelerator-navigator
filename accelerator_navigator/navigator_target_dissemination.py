@@ -12,6 +12,38 @@ import truststore
 logger = setup_logger("accelerator")
 truststore.inject_into_ssl()
 
+class NavigatorDisseminationResult:
+    """
+    Information about storing a dataset in a chroma collection, including the id and collection to which it is
+    stored
+    """
+
+    def __init__(self):
+        self.id = ""
+        self.success = True
+        self.message = ""
+        self.status_code = 0
+        self.api_url = ""
+
+    @staticmethod
+    def from_dict(json_dict:dict):
+        result = NavigatorDisseminationResult()
+        result.id = json_dict["id"]
+        result.success = json_dict["success"]
+        result.message = json_dict["message"]
+        result.api_url = json_dict["api_url"]
+        result.status_code = json_dict["status_code"]
+        return result
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "success": self.success,
+            "message": self.message,
+            "api_url": self.api_url,
+            "status_code": self.status_code
+        }
+
 class NavigatorTargetDissemination(AccelDisseminationComponent):
 
     def __init__(self, xcom_props_resolver: XcomPropsResolver):
@@ -66,6 +98,7 @@ class NavigatorTargetDissemination(AccelDisseminationComponent):
         # Data retrieval from payload
         data_list = []
         payload_length = self.get_payload_length(dissemination_payload)
+
         for i in range(payload_length):
             payload = self.payload_resolve(dissemination_payload, i)
             logger.info(f"found payload {payload}")
@@ -83,10 +116,30 @@ class NavigatorTargetDissemination(AccelDisseminationComponent):
 
             doc = load_document(content=resource['resource_description'], metadata=metadata)
 
+            result = NavigatorDisseminationResult()
+
             # Vector db insert
-            db.add(docs=[doc], chunk_size=chunk_size, chunk_overlap=chunk_overlap)
+            try:
+                ids_added = db.add(docs=[doc], chunk_size=chunk_size, chunk_overlap=chunk_overlap)
+                # will be just one id
+
+                result.success = True
+                result.message = f"Added {len(ids_added)} documents"
+                result.api_url = f"https://{chroma_host}:{chroma_port}/{collection_name}/"
+                result.id = ids_added[0]
+
+                dissemination_payload.payload_inline = True
+                dissemination_payload.payload = []
+                dissemination_payload.payload.append(result.to_dict())
+            except Exception as e:
+                payload.payload_inline = True
+                result.success = False
+                result.message = str(e)
+                dissemination_payload.payload = []
+                dissemination_payload.payload.append(result.to_dict())
 
         return dissemination_payload
+
 
     @staticmethod
     def array_to_string(input_array) -> str:
