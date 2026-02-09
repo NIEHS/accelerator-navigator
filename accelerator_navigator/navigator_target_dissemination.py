@@ -4,8 +4,6 @@ from accelerator_core.utils.logger import setup_logger
 from accelerator_core.utils.xcom_utils import XcomPropsResolver
 from accelerator_core.workflow.accel_data_models import DisseminationPayload
 from accelerator_core.workflow.accel_target_dissemination import AccelDisseminationComponent
-from accelerator_navigator.cert_bundler import bundle_certs
-from accelerator_navigator.document_template_processor import NavigatorDocument
 from accelerator_navigator.vectordb import ChromaDB, load_document
 import truststore
 
