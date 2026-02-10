@@ -6,8 +6,9 @@ from accelerator_core.workflow.accel_data_models import DisseminationPayload
 from accelerator_core.workflow.accel_target_dissemination import AccelDisseminationComponent
 from accelerator_navigator.vectordb import ChromaDB, load_document
 import truststore
+import logging
 
-logger = setup_logger("accelerator")
+logger = logging.getLogger(__name__)
 truststore.inject_into_ssl()
 
 class NavigatorDisseminationResult:
@@ -73,12 +74,16 @@ class NavigatorTargetDissemination(AccelDisseminationComponent):
         chroma_password = additional_parameters["password"]
         collection_name = additional_parameters["collection"]
 
+        logger.info(f"host:{chroma_host}")
+
         # AI Auth
         ai_base_url = additional_parameters["ai_base_url"]
         ai_api_key = additional_parameters["api_key"]
 
         # AI Embedding model
         embedding = additional_parameters["ai_model_embedding"]
+        logger.info(f"ai_base_url:{ai_base_url}")
+        logger.info(f"embedding:{embedding}")
 
         # Vector db insert metrics
         chunk_size = 1000
@@ -111,6 +116,8 @@ class NavigatorTargetDissemination(AccelDisseminationComponent):
                         'Type of data': resource['resource_type'],
                         'Link': resource['resource_url']
                         }
+
+            logger.info(f"metadata:{metadata}")
 
             doc = load_document(content=resource['resource_description'], metadata=metadata)
 
