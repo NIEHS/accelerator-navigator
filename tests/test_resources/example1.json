@@ -1,0 +1,244 @@
+{
+  "_id": {
+    "$oid": "6893af4d0da5628793db4b50"
+  },
+  "submission": {
+    "submitter_name": "Mike Conway",
+    "submitter_email": "mike.conway@nih.gov",
+    "submitter_comment": ""
+  },
+  "data": {
+    "program": {
+      "program_name": "CHORDS",
+      "preferred_label": ""
+    },
+    "project": {
+      "project_code": "NASA-AQS-NO2-071924",
+      "project_name": "NASA- Air Quality Daily and Annual NO2 Concentrations",
+      "project_short_name": "NASA-AQS-NO2",
+      "project_url": "",
+      "project_sponsor": [
+        {
+          "type": "",
+          "name": "Environmental Protection Agency (EPA)",
+          "other_type": false
+        },
+        {
+          "type": "",
+          "name": "National Aeronautics and Space Administration (NASA)",
+          "other_type": false
+        },
+        {
+          "type": "Federal Agency",
+          "name": "",
+          "other_type": false
+        }
+      ]
+    },
+    "resource": {
+      "resource_name": "Di et al. (2020) Daily and Annual NO2 Concentrations for the Contiguous United States, 1-km Grids, v1.10 (2000 – 2016)",
+      "resource_version": "v1.10",
+      "resource_short_name": "NO2 Concentrations for CONUS",
+      "resource_type": "Data Resource",
+      "resource_url": "https://www.earthdata.nasa.gov/data/catalog/sedac-ciesin-sedac-aqdh-dano2-us-1km-1.10-1.10",
+      "resource:doi": "",
+      "resource_description": "The Daily and Annual NO2 Concentrations for the Contiguous United States, 1-km Grids, Version 1.10 (2000-2016) dataset contains nitrogen dioxide (NO2) air pollution concentration estimates. NO2 concentrations are estimated using an ensemble modeling approach with three machine learning models (neural network, random forest, and gradient boosting) and a generalized additive model. The approach incorporates satellite-based observations of NO2 column concentrations, land use and meteorological variables, chemical transport models, and other data sources. This dataset provides daily and annual average NO2 concentration estimates during 2000 to 2016 for the contiguous United States with 1 km spatial resolution.",
+      "resource_domain": [
+        {
+          "name": "Air Quality",
+          "other_type": false
+        }
+      ],
+      "resource_keywords": [
+        "Modeled Data",
+        "Ensemble Model",
+        "Generalized Additive Model",
+        "Chemical Transport Model",
+        "Remote Sensing",
+        "Machine Learning",
+        "Air Pollution",
+        "NO2",
+        "Concentration Prediction",
+        "Annual Average",
+        "Daily Average",
+        "CONUS"
+      ],
+      "resource_access_type": [
+        "Open"
+      ],
+      "resource_license": {
+        "license_name": "",
+        "license_uri": ""
+      },
+      "resource_reference": [
+        {
+          "resource_reference_text": "Di, Q., Wei, Y., Shtein, A., Xing, X., Amini, H., Hultquist, C., Shi, L., Kloog, I., Silvern, R., Kelly, J., Sabath, M. B., Choirat, C., Koutrakis, P., Lyapustin, A., Wang, Y., Mickley, L. J., Daouk, Y., & Schwartz, J. (2024). Daily and Annual NO2 Concentrations for the Contiguous United States, 1-km Grids, Version 1.10 (2000 - 2016) (Version 1.10) [Data set]. Palisades, NY: NASA Socioeconomic Data and Applications Center (SEDAC).",
+          "resource_reference_link": "https://doi.org/10.7927/RZ28-P167"
+        }
+      ],
+      "resource_use_agreement": [
+        {
+          "resource_use_agreement_text": "None",
+          "resource_use_agreement_link": "http://nolink"
+        }
+      ],
+      "publication": [
+        {
+          "citation": "Di, Q., Amini, H., Shi, L., Kloog, I., Silvern, R., Kelly, J., ... & Schwartz, J. (2019). Assessing NO2 concentration and model uncertainty with high spatiotemporal resolution across the contiguous United States using ensemble model averaging. Environmental science & technology, 54(3), 1372-1384.",
+          "citation_link": "https://doi.org/10.1021/acs.est.9b03358"
+        }
+      ],
+      "is_static": true,
+      "payment_required": false
+    },
+    "personnel": [],
+    "data_resource": {
+      "exposure_media": [],
+      "measures": [
+        {
+          "value": "Nitrogen Dioxide (NO2)",
+          "other_type": false
+        }
+      ],
+      "measurement_method": [],
+      "time_extent_start": "2000",
+      "time_extent_end": "2016",
+      "time_available_comment": "None",
+      "update_frequency": [
+        "Static"
+      ],
+      "key_variables": [
+        "NO2 air pollution estimated concentrations"
+      ],
+      "data_formats": [
+        "GeoTIFF",
+        "RDS"
+      ],
+      "example_metrics": [
+        "Daily average NO2 air pollution concentration for grid cell containing geocoded address"
+      ],
+      "data_location": [
+        {
+          "data_location_text": "",
+          "data_location_link": "https://www.earthdata.nasa.gov/data/catalog/sedac-ciesin-sedac-aqdh-dano2-us-1km-1.10-1.10"
+        }
+      ],
+      "includes_citizen_collected": false,
+      "has_api": false,
+      "has_visualization_tool": false
+    },
+    "data_usage": {
+      "intended_use": [
+        {
+          "value": "Geospatial exposure assessment for studies on shorter-term health outcomes (e.g., acute conditions) or longer-term health outcomes (e.g., chronic conditions)",
+          "other_type": false
+        },
+        {
+          "value": "Geospatial exposure assessment at the individual-level or population-level",
+          "other_type": false
+        },
+        {
+          "value": "Environmental justice analyses",
+          "other_type": false
+        },
+        {
+          "value": "Long-term studies",
+          "other_type": false
+        },
+        {
+          "value": "Large-scale studies",
+          "other_type": false
+        },
+        {
+          "value": "Longitudinal studies",
+          "other_type": false
+        },
+        {
+          "value": "Cross-sectional studies",
+          "other_type": false
+        }
+      ],
+      "strengths": [
+        "Dataset supports analysis of shorter-term and longer-term exposure to NO2 air pollution across the contiguous US using consistent methods",
+        "Dataset incorporates imputation of missing values to provide high coverage (completeness) of predictions within the spatial and temporal extent"
+      ],
+      "limitations": [
+        "Dataset does not include model estimates of uncertainty (e.g., confidence intervals for predictions)",
+        "Dataset cannot be used to compare exposures within the same grid cell or at different times of day",
+        "Dataset does not include model estimates of uncertainty (e.g., confidence intervals for predictions)",
+        "Dataset cannot be used to compare exposures within the same grid cell or at different times of day"
+      ],
+      "suggested_audience": [
+        "Researcher"
+      ]
+    },
+    "temporal_data": {
+      "temporal_resolution": [
+        {
+          "value": "Daily",
+          "other_type": false
+        }
+      ],
+      "temporal_resolution_comment": ""
+    },
+    "population_data": {
+      "individual_level": false,
+      "linkable_encounters": false,
+      "population_studies": [],
+      "biospecimens_from_humans": false,
+      "biospecimens_type": []
+    },
+    "geospatial_data": {
+      "spatial_resolution": [
+        {
+          "value": "['Grid']",
+          "other_type": false
+        },
+        {
+          "value": "1 km",
+          "other_type": true
+        }
+      ],
+      "spatial_resolution_comment": "None",
+      "spatial_coverage": [
+        {
+          "value": "Contiguous United States",
+          "other_type": false
+        }
+      ],
+      "spatial_bounding_box": [],
+      "geometry_type": [
+        "Grid"
+      ],
+      "geometry_source": [],
+      "model_methods": [],
+      "geographic_feature": []
+    },
+    "computational_workflow": {
+      "tool_type": [],
+      "is_open": false,
+      "languages": [],
+      "use_tools": [],
+      "example_applications": []
+    }
+  },
+  "technical_metadata": {
+    "created": "2025-08-06T19:38:53.010526",
+    "modified": "",
+    "verified": "",
+    "original_source_type": "accelerator",
+    "original_source_identifier": "25655186-6e90-40e2-9ac1-64cd47ca6261",
+    "original_source_link": "cedar",
+    "history": [
+      {
+        "timestamp": "2025-08-06T19:38:53.010542",
+        "msg": "accession from accelerator with identifier 25655186-6e90-40e2-9ac1-64cd47ca6261 in operation CEDAR_Ingest-manual__2025-08-06T19:38:19.511036+00:00"
+      },
+      {
+        "timestamp": "2025-08-06T19:42:04.600373",
+        "msg": "Disseminating document 6893af4d0da5628793db4b50 of type accelerator to target: dataverse"
+      }
+    ],
+    "original_source": "25655186-6e90-40e2-9ac1-64cd47ca6261"
+  }
+}

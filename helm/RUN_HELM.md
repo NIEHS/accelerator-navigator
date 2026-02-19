@@ -1,0 +1,80 @@
+# Run ChromaDB in Kubernetes with Helm
+
+The following will add ChromaDB to Accelerator for testing/development purposes
+
+Helm Chart: https://github.com/amikos-tech/chromadb-chart
+
+A pre-packaged [test values](./test_values.yaml) file is included to align with the test framework
+
+## Instructions
+
+See [Chroma chart README](https://github.com/amikos-tech/chromadb-chart/blob/main/README.md) for details
+
+### Install the Helm Chart
+
+```shell
+
+cd helm
+
+helm repo add chroma https://amikos-tech.github.io/chromadb-chart/
+helm repo update
+
+```
+
+The included [test values](test_values.yaml) has overrides that generally apply to 
+development and integration tests.
+
+If you are running this with Accelerator, you might want to install this into the same namespace. N.B. that 'k' is 
+an alias for kubectl in this document.
+
+```shell
+
+k config set-context --current --namespace=accelerator-dev
+
+
+```
+
+The following command is using the accelerator namespace, so omit the -n flag or change the namespace if desired.
+
+We want to provide a token that we can use for testing. Let's leave this out of the git repo! Set a value via a 
+property override
+
+#### For token auth
+
+```shell
+
+k create secret generic chromadb-auth-custom --from-literal=token="my-token"
+
+helm install chroma chroma/chromadb -n accelerator-dev --set chromadb.auth.existingSecret="chromadb-auth-custom" -f test_values.yaml
+
+```
+
+To test, given that you've set the context to the correct namespace, try this:
+
+```shell
+
+export CHROMA_TOKEN=$(kubectl get secret chromadb-auth-custom -o jsonpath="{.data.token}" | base64 --decode)
+
+export CHROMA_HEADER_NAME=$(kubectl --namespace default get configmap chroma-chromadb-token-auth-config -o jsonpath="{.data.CHROMA_AUTH_TOKEN_TRANSPORT_HEADER}")
+
+
+```
+
+
+#### For basic auth (used by tests)
+
+```shell
+
+k create secret generic chromadb-auth-basic --from-literal=token="heypasword"
+
+helm install chroma chroma/chromadb -n accelerator-dev --set chromadb.auth.basic.password="chromadb-auth-basic" -f test_values.yaml
+
+```
+
+#### Port forwarding for Chroma
+
+For mongodb port forwarding:
+ 
+port forward mongodb pod on server using k9s
+* open ssh tunnel on local machine: ➜  ~ ssh -L 27017:localhost:27017 user@host
+* update mongodb compass connection string to: mongodb://user:password@127.0.0.1:27017/?directConnection=true&authSource=admin
